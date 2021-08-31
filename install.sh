@@ -47,16 +47,16 @@ echo "Cloning dotfiles..."
 git clone git@github.com:famazak/dotfiles.git
 echo "Dotfiles cloned into ~/dotfiles"
 
+# install homebrew packages
+echo "Installing Brew packages..."
+brew bundle install --file=~/dotfiles/Brewfile
+
 # use stow to symlink dotfiles
 cd ~/dotfiles
 stow git
 stow zsh
 stow vim
 stow taskwarrior
-
-# install homebrew packages
-echo "Installing Brew packages..."
-brew bundle install --file=~/dotfiles/Brewfile
 
 # use Homebrew installed zsh
 chsh -s /usr/local/bin/zsh
