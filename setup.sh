@@ -72,7 +72,7 @@ chmod 755 /usr/local/share/zsh/site-functions
 # Symlink dotfiles with stow
 # ######################################
 echo "#### Stowing..."
-stow -d ~/dotfiles -R -t ~ -S git nano zsh
+stow -d ~/dotfiles -R -t ~ -S git nano zsh vim taskwarrior
 echo "#### Stowed"
 
 source ~/.zshrc
@@ -95,6 +95,7 @@ echo "Global gitignore created"
 
 # ######################################
 # Mac preferences
+# (I don't know if all of these actually work...)
 # ######################################
 
 # dock
