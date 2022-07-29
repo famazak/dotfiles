@@ -72,7 +72,9 @@ chmod 755 /usr/local/share/zsh/site-functions
 # Symlink dotfiles with stow
 # ######################################
 echo "#### Stowing..."
-stow -d ~/dotfiles -R -t ~ -S git nano zsh vim taskwarrior
+# stow -d ~/dotfiles -R -t ~ -S git nano zsh vim taskwarrior
+cd stow
+stow -t ~ *
 echo "#### Stowed"
 
 source ~/.zshrc
