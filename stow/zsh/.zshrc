@@ -20,6 +20,7 @@ source $ZSH/oh-my-zsh.sh
 alias nano='/usr/local/bin/nano'
 
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
