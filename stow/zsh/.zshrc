@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
@@ -20,6 +20,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias nano='/usr/local/bin/nano'
+alias ll='exa --long --header --group --git --modified --color-scale --all'
+alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2'
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -43,5 +45,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+eval "$(starship init zsh)"
+
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
