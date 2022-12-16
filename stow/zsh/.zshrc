@@ -44,3 +44,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 eval "$(starship init zsh)"
+cd ~ # temp setting while testing out warp terminal app
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
