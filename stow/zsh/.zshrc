@@ -1,11 +1,19 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/Users/zakfama/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 
 plugins=(
@@ -13,13 +21,14 @@ plugins=(
 	zsh-syntax-highlighting
 	zsh-autosuggestions
 	fast-syntax-highlighting
+    poetry
 )
 
 source $ZSH/oh-my-zsh.sh
 
 alias nano='/usr/local/bin/nano'
-alias ll='exa --long --header --group --git --modified --color-scale --all'
-alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2'
+alias ll='exa --long --header --group --git --modified --color-scale --all --icons'
+alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -43,7 +52,9 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-eval "$(starship init zsh)"
-cd ~ # temp setting while testing out warp terminal app
+# eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
