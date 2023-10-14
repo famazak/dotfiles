@@ -3,3 +3,4 @@
 	email = zakfama58@gmail.com
 [core]
 	excludesfile = /Users/$USER/.gitignore
+	editor = nvim
