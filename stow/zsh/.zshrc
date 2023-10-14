@@ -27,6 +27,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias nano='/usr/local/bin/nano'
+alias lg='lazygit'
 alias ll='exa --long --header --group --git --modified --color-scale --all --icons'
 alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
 
