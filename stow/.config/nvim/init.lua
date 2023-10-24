@@ -153,6 +153,16 @@ require('lazy').setup({
     },
   },
   {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim'
+    }
+  },
+  {
+    'nvim-neotest/neotest-python'
+  },
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -374,9 +384,17 @@ require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
+require("neotest").setup({
+  adapters = {
+    require("neotest-python")({
+      dap = { justMyCode = false },
+    }),
+  },
+})
 
 vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd> DapToggleBreakpoint <CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>db', require('dap').continue, { desc = 'launch debugger' })
+vim.keymap.set('n', '<leader>rt', require('neotest').run.run, { desc = 'run nearest test' })
 
 -- require("bufferline").setup{
 --   options = {
