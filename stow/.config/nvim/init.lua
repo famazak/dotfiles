@@ -119,23 +119,34 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-  -- {
-  --   'akinsho/bufferline.nvim',
-  --   version = "*",
-  --   dependencies = 'tvim-tree/nvim-web-devicons'
-  -- },
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   version = "*",
-  --   lazy = false,
-  --   dependencies = {
-  --     "nvim-tree/nvim-web-devicons",
-  --   },
-  --   config = function()
-  --     require("nvim-tree").setup {}
-  --     vim.keymap.set("n", "<leader>fe", ":NvimTreeToggle<CR>", {silent = true})
-  --   end,
-  -- },
+  {
+      "kylechui/nvim-surround",
+      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
+  },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    -- after = "catppuccin",
+    dependencies = 'nvim-tree/nvim-web-devicons'
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+      vim.keymap.set("n", "<leader>fe", ":NvimTreeToggle<CR>", {silent = true})
+    end,
+  },
 
   {
     'mfussenegger/nvim-dap',
@@ -211,14 +222,21 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   -- Theme inspired by Atom
+  --   'catppuccin/nvim',
+  --   name = "catppuccin",
+  --   priority = 1000,
+  --   -- config = function()
+  --   --   vim.cmd.colorscheme 'catppuccin'
+  --   -- end,
+  -- },
   {
-    -- Theme inspired by Atom
-    'catppuccin/nvim',
-    name = "catppuccin",
-    priority = 1000,
+    'sainnhe/gruvbox-material',
     config = function()
-      vim.cmd.colorscheme 'catppuccin'
-    end,
+      vim.cmd.colorscheme 'gruvbox-material'
+      vim.g.gruvbox_material_better_performance=1
+    end
   },
 
   {
@@ -228,7 +246,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'catppuccin',
+        theme = 'gruvbox-material',
         component_separators = '|',
         section_separators = '',
       },
@@ -367,19 +385,24 @@ require('mason-tool-installer').setup {
 
 require('lualine').setup{
   options = {
-    theme = 'catppuccin',
+    theme = 'gruvbox-material',
 
   },
   sections = {
     lualine_c = {{'filename', path = 1}},
   },
-  tabline = {
-    lualine_a = {'buffers'},
-  },
+  -- tabline = {
+  --   lualine_a = {'buffers'},
+  -- },
 }
-require("catppuccin").setup({
-  transparent_background=true,
-})
+-- require("catppuccin").setup({
+--   transparent_background=true,
+--   integrations = {
+--     gitsigns = true,
+--     nvimtree = true,
+--     treesitter = true,
+--   },
+-- })
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
@@ -396,19 +419,49 @@ vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd> DapToggleBreakpoint <CR>', { n
 vim.keymap.set('n', '<leader>db', require('dap').continue, { desc = 'launch debugger' })
 vim.keymap.set('n', '<leader>rt', require('neotest').run.run, { desc = 'run nearest test' })
 
--- require("bufferline").setup{
---   options = {
---     offsets = {
---     {
+-- local mocha = require("catppuccin.palettes").get_palette "mocha"
+-- require("bufferline").setup {
+--     highlights = require("catppuccin.groups.integrations.bufferline").get {
+--         styles = { "italic", "bold" },
+--         custom = {
+--             all = {
+--                 fill = { bg = "#000000" },
+--             },
+--             mocha = {
+--                 background = { fg = mocha.text },
+--             },
+--             latte = {
+--                 background = { fg = "#000000" },
+--             },
+--         },
+--     },
+--     options = {
+--       show_buffer_icons = true,
+--       separator_style = "slant",
+--       offsets = {{
 --         filetype = "NvimTree",
---         text = "Nvim Tree",
+--         text = "File Explorer",
 --         separator = true,
 --         text_align = "left"
---       }
---     }
+--       }}
 --   }
 -- }
--- require autoclose
+
+require("bufferline").setup{
+  -- highlights = require("catppuccin.groups.integrations.bufferline").get(),
+  options = {
+    show_buffer_icons = true,
+    show_buffer_close_icons = false,
+    offsets = {
+    {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        separator = true,
+        text_align = "left"
+      }
+    }
+  }
+}
 require("autoclose").setup()
 require('lint').linters_by_ft = {
   -- python = {'ruff',},
@@ -494,17 +547,17 @@ vim.keymap.set('n', '<leader>d', "\"_d")
 vim.keymap.set('v', '<leader>d', "\"_d")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- require("nvim-tree").setup({
---   view = {
---     width = 50,
---   },
---   git = {
---     ignore = true,
---   },
---   filters = {
---     git_ignored = false,
---   },
--- })
+require("nvim-tree").setup({
+  view = {
+    width = 50,
+  },
+  git = {
+    ignore = true,
+  },
+  filters = {
+    git_ignored = false,
+  },
+})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
