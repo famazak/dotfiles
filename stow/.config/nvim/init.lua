@@ -45,6 +45,8 @@ vim.g.maplocalleader = ' '
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 vim.wo.relativenumber = true
+vim.opt.showtabline = 0
+vim.opt.colorcolumn="88"
 
 -- Define key mappings to switch between buffers
 vim.api.nvim_set_keymap('n', '<S-h>', ':bp<CR>', { noremap = true, silent = true })
@@ -129,12 +131,12 @@ require('lazy').setup({
           })
       end
   },
-  {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    -- after = "catppuccin",
-    dependencies = 'nvim-tree/nvim-web-devicons'
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   version = "*",
+  --   -- after = "catppuccin",
+  --   dependencies = 'nvim-tree/nvim-web-devicons'
+  -- },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -188,6 +190,12 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts) require'lsp_signature'.setup(opts) end
+  },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -205,6 +213,7 @@ require('lazy').setup({
       },
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>gh', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        vim.keymap.set('n', '<leader>gr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = 'Reset git hunk' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -377,9 +386,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('mason-tool-installer').setup {
   ensure_installed = {
     'yamlfmt',
+    'yamllint',
     'black',
     'isort',
-    'ruff'
+    'ruff',
+    'mypy',
+    'sqlfluff'
   },
 }
 
@@ -447,25 +459,26 @@ vim.keymap.set('n', '<leader>rt', require('neotest').run.run, { desc = 'run near
 --   }
 -- }
 
-require("bufferline").setup{
-  -- highlights = require("catppuccin.groups.integrations.bufferline").get(),
-  options = {
-    show_buffer_icons = true,
-    show_buffer_close_icons = false,
-    offsets = {
-    {
-        filetype = "NvimTree",
-        text = "File Explorer",
-        separator = true,
-        text_align = "left"
-      }
-    }
-  }
-}
+-- require("bufferline").setup{
+--   -- highlights = require("catppuccin.groups.integrations.bufferline").get(),
+--   options = {
+--     show_buffer_icons = true,
+--     show_buffer_close_icons = false,
+--     offsets = {
+--     {
+--         filetype = "NvimTree",
+--         text = "File Explorer",
+--         separator = true,
+--         text_align = "left"
+--       }
+--     }
+--   }
+-- }
 require("autoclose").setup()
 require('lint').linters_by_ft = {
-  -- python = {'ruff',},
-  yaml = {'yamlfmt',},
+  python = {'mypy',},
+  yaml = {'yamllint',},
+  sql = {'sqlfluff',},
 }
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
@@ -480,8 +493,9 @@ require("formatter").setup {
   log_level = vim.log.levels.WARN,
   filetype = {
     python = {
-      require("formatter.filetypes.python").black,
-      require("formatter.filetypes.python").isort,
+      -- require("formatter.filetypes.python").black,
+      -- require("formatter.filetypes.python").isort,
+      require("formatter.filetypes.python").ruff,
     },
     yaml = {
       require("formatter.filetypes.yaml").yamlfmt,
@@ -699,6 +713,7 @@ local servers = {
     python = {
       analysis = {
         autoImportCompletions = true,
+        typeCheckingMode = "off",
       },
     },
   },
@@ -707,7 +722,20 @@ local servers = {
       "--config=pyproject.toml"
     },
   },
-  yamlls = {},
+  yamlls = {
+    yaml = {
+      schemaStore = {
+        url = "https://www.schemastore.org/api/json/catalog.json",
+        enable = true
+      },
+      hover = true,
+      completion = true,
+      customTags = {
+        "!Sub",
+        "!GetAtt"
+      }
+    }
+  },
 
   lua_ls = {
     Lua = {
