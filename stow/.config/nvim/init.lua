@@ -149,6 +149,12 @@ require('lazy').setup({
       vim.keymap.set("n", "<leader>fe", ":NvimTreeToggle<CR>", {silent = true})
     end,
   },
+  {
+    'ThePrimeagen/harpoon',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    },
+  },
 
   {
     'mfussenegger/nvim-dap',
@@ -515,7 +521,10 @@ require('telescope').setup {
     mappings = {
       i = {
         ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+      },
+      n = {
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
       },
     },
   },
@@ -523,6 +532,8 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- Enable telescope harpoon extension
+require("telescope").load_extension('harpoon')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -542,6 +553,9 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]resume' })
+vim.keymap.set('n', '<leader>sa', require('harpoon.mark').add_file, { desc = 'Add harpoon mark' })
+vim.keymap.set('n', '<leader>st', require('harpoon.ui').toggle_quick_menu, { desc = 'Toggle harpoon' })
+vim.keymap.set('n', '<leader>sm', ":Telescope harpoon marks<CR>", { desc = 'Show harpoon marks' })
 
 vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>')
 
