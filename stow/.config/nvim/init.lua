@@ -154,6 +154,51 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim'
     },
+    keys = {
+      {
+        "<leader>hc",
+        function()
+          require("harpoon.mark").clear_all()
+        end,
+        desc = "Clear all marks",
+        id = "clear_marks"
+      },
+      {
+        "<leader>1",
+        function()
+          require("harpoon.ui").nav_file(1)
+        end,
+        id = "nav_1"
+      },
+      {
+        "<leader>2",
+        function()
+          require("harpoon.ui").nav_file(2)
+        end,
+        id = "nav_2"
+      },
+      {
+        "<leader>3",
+        function()
+          require("harpoon.ui").nav_file(3)
+        end,
+        id = "nav_3"
+      },
+      {
+        "<leader>4",
+        function()
+          require("harpoon.ui").nav_file(4)
+        end,
+        id = "nav_4"
+      },
+      {
+        "<leader>5",
+        function()
+          require("harpoon.ui").nav_file(5)
+        end,
+        id = "nav_5"
+      },
+    },
   },
 
   {
