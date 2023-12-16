@@ -227,6 +227,9 @@ require('lazy').setup({
     'nvim-neotest/neotest-python'
   },
   {
+    'rouge8/neotest-rust'
+  },
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -246,6 +249,9 @@ require('lazy').setup({
     event = "VeryLazy",
     opts = {},
     config = function(_, opts) require'lsp_signature'.setup(opts) end
+  },
+  {
+    'simrat39/rust-tools.nvim'
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -443,7 +449,9 @@ require('mason-tool-installer').setup {
     'isort',
     'ruff',
     'mypy',
-    'sqlfluff'
+    'sqlfluff',
+    'codelldb',
+    'rustfmt'
   },
 }
 
@@ -476,6 +484,7 @@ require("neotest").setup({
     require("neotest-python")({
       dap = { justMyCode = false },
     }),
+    require("neotest-rust"),
   },
 })
 
@@ -552,6 +561,9 @@ require("formatter").setup {
     yaml = {
       require("formatter.filetypes.yaml").yamlfmt,
     },
+    rust = {
+      require("formatter.filetypes.rust").rustfmt,
+    },
   }
 }
 vim.cmd([[
@@ -575,6 +587,19 @@ require('telescope').setup {
     },
   },
 }
+-- rust tools setup
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -803,6 +828,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  rust_analyzer = {},
 }
 
 -- Setup neovim lua configuration
