@@ -297,12 +297,21 @@ require('lazy').setup({
   --   --   vim.cmd.colorscheme 'catppuccin'
   --   -- end,
   -- },
+  -- {
+  --   'sainnhe/gruvbox-material',
+  --   config = function()
+  --     vim.g.gruvbox_material_background='hard'
+  --     vim.cmd.colorscheme 'gruvbox-material'
+  --     vim.g.gruvbox_material_better_performance=1
+  --   end
+  -- },
   {
-    'sainnhe/gruvbox-material',
+    'sainnhe/everforest',
     config = function()
-      vim.g.gruvbox_material_background='hard'
-      vim.cmd.colorscheme 'gruvbox-material'
-      vim.g.gruvbox_material_better_performance=1
+      vim.o.background="dark"
+      vim.g.everforest_background='hard'
+      vim.g.everforest_better_performance=1
+      vim.cmd.colorscheme 'everforest'
     end
   },
 
@@ -313,7 +322,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'gruvbox-material',
+        theme = 'everforest',
         component_separators = '|',
         section_separators = '',
       },
@@ -463,7 +472,7 @@ require('mason-tool-installer').setup {
 
 require('lualine').setup{
   options = {
-    theme = 'gruvbox-material',
+    theme = 'everforest',
 
   },
   sections = {
