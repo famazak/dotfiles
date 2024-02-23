@@ -30,6 +30,7 @@ alias nano='/usr/local/bin/nano'
 alias lg='lazygit'
 alias ll='exa --long --header --group --git --modified --color-scale --all --icons'
 alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
+export BAT_THEME="base16"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -54,6 +55,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
