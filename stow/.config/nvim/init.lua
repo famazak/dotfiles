@@ -466,7 +466,8 @@ require('mason-tool-installer').setup {
     'mypy',
     'sqlfluff',
     'codelldb',
-    'rustfmt'
+    'rustfmt',
+    'cpptools'
   },
 }
 
@@ -506,6 +507,8 @@ require("neotest").setup({
 vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd> DapToggleBreakpoint <CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>db', require('dap').continue, { desc = 'launch debugger' })
 vim.keymap.set('n', '<leader>rt', require('neotest').run.run, { desc = 'run nearest test' })
+vim.keymap.set('n', '<leader>rT', function() require('neotest').run.run(vim.fn.expand("%")) end, { desc = 'run entire test file' })
+vim.keymap.set('n', '<leader>dt', function() require('neotest').run.run({strategy = "dap"}) end, { desc = 'debug nearest test' })
 
 -- local mocha = require("catppuccin.palettes").get_palette "mocha"
 -- require("bufferline").setup {
@@ -832,7 +835,8 @@ local servers = {
       completion = true,
       customTags = {
         "!Sub",
-        "!GetAtt"
+        "!GetAtt",
+        "!Ref"
       }
     }
   },
@@ -843,7 +847,13 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  rust_analyzer = {},
+  rust_analyzer = {
+    ["rust-analyzer"] = {
+      check = {
+        command = "clippy",
+      },
+    },
+  },
 }
 
 -- Setup neovim lua configuration
