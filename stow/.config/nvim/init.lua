@@ -194,9 +194,6 @@ require('lazy').setup({
     opts = {},
     config = function(_, opts) require'lsp_signature'.setup(opts) end
   },
-  {
-    'simrat39/rust-tools.nvim'
-  },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -454,8 +451,6 @@ require('telescope').setup {
     },
   },
 }
--- rust tools setup
-local rt = require("rust-tools")
 
 rt.setup({
   server = {
