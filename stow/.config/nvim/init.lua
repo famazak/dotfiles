@@ -617,25 +617,19 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-require('lspconfig').ruff_lsp.setup {
-  init_options = {
-    settings = {
-      args = {
-        "--config=pyproject.toml"
-      },
-    },
-  },
-}
-
 -- Enable the following language servers
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config
 local servers = {
   pyright = {
+    pyright = {
+      disableOrganizeImports = true, -- use ruff
+    },
     python = {
       analysis = {
         autoImportCompletions = true,
         typeCheckingMode = "off",
+        ignore = { '*' } -- use ruff
       },
     },
   },
