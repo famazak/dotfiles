@@ -31,8 +31,9 @@ alias lg='lazygit'
 alias nv='nvim'
 alias nvf='nvim $(fzf)'
 alias t='tmux new'
-alias ll='exa --long --header --group --git --modified --color-scale --all --icons'
-alias llt='exa --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
+alias hu='brew update && brew upgrade --greedy && brew bundle dump --file=~/dotfiles/Brewfile --force'
+alias ll='eza --long --header --group --git --modified --color-scale --all --icons'
+alias llt='eza --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
 export BAT_THEME="base16"
 
 eval "$(pyenv init -)"
