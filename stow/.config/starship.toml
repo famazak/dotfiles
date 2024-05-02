@@ -44,10 +44,10 @@ symbol = " "
 format = "via [NodeJS $version](bold green) "
          
 [rust]
-format = "via [Rust $version](red bold)"
+format = "via [Rust $version](red bold) "
          
 [golang]
-format = "via [Go $version](red bold)"
+format = "via [Go $version](red bold) "
          
 [python]
 symbol = 'Python '

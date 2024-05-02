@@ -56,6 +56,11 @@ require('lazy').setup({
       "nvim-lua/plenary.nvim",
     },
   },
+  {
+  'mrcjkb/rustaceanvim',
+  version = '^4', -- Recommended
+  lazy = false, -- This plugin is already lazy
+  },
 
   {
     -- LSP Configuration & Plugins
@@ -617,6 +622,27 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+  },
+  -- LSP configuration
+  server = {
+    on_attach = on_attach,
+    default_settings = {
+      -- rust-analyzer language server configuration
+      ['rust-analyzer'] = {
+        check = {
+          command = "clippy",
+        },
+      },
+    },
+  },
+  -- DAP configuration
+  dap = {
+  },
+}
+
 -- Enable the following language servers
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config
@@ -660,13 +686,13 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  rust_analyzer = {
-    ["rust-analyzer"] = {
-      check = {
-        command = "clippy",
-      },
-    },
-  },
+  -- rust_analyzer = {
+  --   ["rust-analyzer"] = {
+  --     check = {
+  --       command = "clippy",
+  --     },
+  --   },
+  -- },
 }
 
 -- Setup neovim lua configuration
