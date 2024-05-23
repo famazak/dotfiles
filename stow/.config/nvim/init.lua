@@ -233,13 +233,19 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   'sainnhe/everforest',
+  --   config = function()
+  --     vim.o.background="dark"
+  --     vim.g.everforest_background='hard'
+  --     vim.g.everforest_better_performance=1
+  --     vim.cmd.colorscheme 'everforest'
+  --   end
+  -- },
   {
-    'sainnhe/everforest',
+    'rebelot/kanagawa.nvim',
     config = function()
-      vim.o.background="dark"
-      vim.g.everforest_background='hard'
-      vim.g.everforest_better_performance=1
-      vim.cmd.colorscheme 'everforest'
+      vim.cmd.colorscheme 'kanagawa'
     end
   },
 
@@ -249,7 +255,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'everforest',
+        theme = 'kanagawa',
         component_separators = '|',
         section_separators = '',
       },
@@ -376,7 +382,7 @@ require('mason-tool-installer').setup {
 
 require('lualine').setup{
   options = {
-    theme = 'everforest',
+    theme = 'kanagawa',
 
   },
   sections = {
