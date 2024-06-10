@@ -242,10 +242,17 @@ require('lazy').setup({
   --     vim.cmd.colorscheme 'everforest'
   --   end
   -- },
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   config = function()
+  --     vim.cmd.colorscheme 'kanagawa'
+  --   end
+  -- },
   {
-    'rebelot/kanagawa.nvim',
+    'ellisonleao/gruvbox.nvim',
     config = function()
-      vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'gruvbox'
+      vim.o.background = "dark"
     end
   },
 
@@ -255,7 +262,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'kanagawa',
+        theme = 'gruvbox_dark',
         component_separators = '|',
         section_separators = '',
       },
@@ -309,6 +316,29 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 }, {})
+
+require('gruvbox').setup({
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    operators = true,
+    comments = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = false, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = true,
+  transparent_mode = false,
+})
+
 
 -- [[ Setting options ]]
 -- Set highlight on search
@@ -382,7 +412,7 @@ require('mason-tool-installer').setup {
 
 require('lualine').setup{
   options = {
-    theme = 'kanagawa',
+    theme = 'gruvbox_dark',
 
   },
   sections = {
@@ -410,6 +440,18 @@ vim.keymap.set('n', '<leader>db', require('dap').continue, { desc = 'launch debu
 vim.keymap.set('n', '<leader>rt', require('neotest').run.run, { desc = 'run nearest test' })
 vim.keymap.set('n', '<leader>rT', function() require('neotest').run.run(vim.fn.expand("%")) end, { desc = 'run entire test file' })
 vim.keymap.set('n', '<leader>dt', function() require('neotest').run.run({strategy = "dap"}) end, { desc = 'debug nearest test' })
+
+local mypy = require('lint').linters.mypy
+mypy.args = {
+  '--show-column-numbers',
+  '--show-error-end',
+  '--hide-error-codes',
+  '--hide-error-context',
+  '--no-color-output',
+  '--no-error-summary',
+  '--no-pretty',
+  '--python-executable=.venv/bin/python'
+}
 
 require("autoclose").setup()
 require('lint').linters_by_ft = {
@@ -783,6 +825,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+require('themes')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
