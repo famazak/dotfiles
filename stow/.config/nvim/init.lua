@@ -563,7 +563,7 @@ require("nvim-tree").setup({
 -- [[ Configure Treesitter ]]
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'sql' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'sql', 'json', 'cmake', 'dockerfile', 'toml', 'yaml'},
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -707,11 +707,11 @@ local servers = {
       },
     },
   },
-  ruff_lsp = {
-    args = {
-      "--config=pyproject.toml"
-    },
-  },
+  -- ruff_lsp = {
+  --   args = {
+  --     "--config=pyproject.toml"
+  --   },
+  -- },
   yamlls = {
     yaml = {
       schemaStore = {
@@ -766,6 +766,14 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+}
+
+require('lspconfig').ruff.setup{
+  settings={
+    args={
+      "--config=pyproject.toml"
+    }
+  }
 }
 
 mason_lspconfig.setup_handlers {
