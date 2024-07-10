@@ -175,9 +175,9 @@ require('lazy').setup({
   {
     'nvim-neotest/neotest-python'
   },
-  {
-    'rouge8/neotest-rust'
-  },
+  -- {
+  --   'rouge8/neotest-rust'
+  -- },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -406,7 +406,9 @@ require('mason-tool-installer').setup {
     'sqlfluff',
     'codelldb',
     'rustfmt',
-    'cpptools'
+    'cpptools',
+    'clangd',
+    'clang-format'
   },
 }
 
@@ -431,7 +433,7 @@ require("neotest").setup({
     require("neotest-python")({
       dap = { justMyCode = false },
     }),
-    require("neotest-rust"),
+    require("rustaceanvim.neotest")
   },
 })
 
@@ -482,6 +484,9 @@ require("formatter").setup {
     rust = {
       require("formatter.filetypes.rust").rustfmt,
     },
+    c = {
+      require("formatter.filetypes.c").clangformat,
+    }
   }
 }
 vim.cmd([[
