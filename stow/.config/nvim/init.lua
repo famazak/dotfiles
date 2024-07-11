@@ -762,6 +762,15 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
+dap.adapters.codelldb = {
+  type = "server",
+  port = "${port}",
+  executable = {
+    command = "codelldb",
+    args = {"--port", "${port}"},
+  },
+}
+
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
