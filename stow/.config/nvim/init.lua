@@ -160,6 +160,12 @@ require('lazy').setup({
     },
   },
   {
+    'leoluz/nvim-dap-go',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+    },
+  },
+  {
     'rcarriga/nvim-dap-ui',
     dependencies = {
       'mfussenegger/nvim-dap',
@@ -169,7 +175,10 @@ require('lazy').setup({
     'nvim-neotest/neotest',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'antoinemadec/FixCursorHold.nvim'
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-neotest/nvim-nio',
+      'nvim-treesitter/nvim-treesitter',
+      'fredrikaverpil/neotest-golang',
     }
   },
   {
@@ -408,7 +417,10 @@ require('mason-tool-installer').setup {
     'rustfmt',
     'cpptools',
     'clangd',
-    'clang-format'
+    'clang-format',
+    'gopls',
+    'golangci-lint',
+    'gofumpt'
   },
 }
 
@@ -425,6 +437,7 @@ require('lualine').setup{
   -- },
 }
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+require('dap-go').setup()
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
@@ -433,7 +446,8 @@ require("neotest").setup({
     require("neotest-python")({
       dap = { justMyCode = false },
     }),
-    require("rustaceanvim.neotest")
+    require("rustaceanvim.neotest"),
+    require("neotest-golang"),
   },
 })
 
@@ -460,6 +474,7 @@ require('lint').linters_by_ft = {
   python = {'mypy',},
   yaml = {'yamllint',},
   sql = {'sqlfluff',},
+  go = {'golangci-lint',},
 }
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
@@ -486,6 +501,9 @@ require("formatter").setup {
     },
     c = {
       require("formatter.filetypes.c").clangformat,
+    },
+    go = {
+      require("formatter.filetypes.go").gofumpt,
     }
   }
 }
@@ -739,6 +757,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  gopls = {},
   -- rust_analyzer = {
   --   ["rust-analyzer"] = {
   --     check = {
