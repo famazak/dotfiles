@@ -33,7 +33,8 @@ TERM = "xterm-256color"
 size = 16.0
 
 [font.normal]
-family = "Iosevka Nerd Font Mono"
+# family = "Iosevka Nerd Font Mono"
+family = "MesloLGL Nerd Font Mono"
 
 [schemes.everforest_dark_hard.bright]
 black = "#475258"

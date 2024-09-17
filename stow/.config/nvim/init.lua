@@ -225,6 +225,8 @@ require('lazy').setup({
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>gh', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
         vim.keymap.set('n', '<leader>gr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = 'Reset git hunk' })
+        vim.keymap.set('n', '<leader>gb', require('gitsigns').toggle_current_line_blame, { buffer = bufnr, desc = 'Toggle CL blame' })
+        vim.keymap.set('n', '<leader>gd', require('gitsigns').diffthis, { buffer = bufnr, desc = 'diffthis' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -350,6 +352,8 @@ require('gruvbox').setup({
 
 
 -- [[ Setting options ]]
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -474,7 +478,7 @@ require('lint').linters_by_ft = {
   python = {'mypy',},
   yaml = {'yamllint',},
   sql = {'sqlfluff',},
-  go = {'golangci-lint',},
+  go = {'golangcilint',},
 }
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
