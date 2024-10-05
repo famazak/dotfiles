@@ -47,7 +47,10 @@ require('lazy').setup({
   -- linter in place of null-ls
   'mfussenegger/nvim-lint',
   'averms/black-nvim',
-  'mhartington/formatter.nvim',
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
   'WhoIsSethDaniel/mason-tool-installer.nvim',
 
   {
@@ -487,36 +490,22 @@ vim.api.nvim_create_autocmd({"BufWritePost"}, {
   end
 })
 
-local util = require "formatter.util"
-require("formatter").setup {
-  logging = true,
-  log_level = vim.log.levels.WARN,
-  filetype = {
-    python = {
-      -- require("formatter.filetypes.python").black,
-      -- require("formatter.filetypes.python").isort,
-      require("formatter.filetypes.python").ruff,
-    },
-    yaml = {
-      require("formatter.filetypes.yaml").yamlfmt,
-    },
-    rust = {
-      require("formatter.filetypes.rust").rustfmt,
-    },
-    c = {
-      require("formatter.filetypes.c").clangformat,
-    },
-    go = {
-      require("formatter.filetypes.go").gofumpt,
-    }
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    python = {"ruff_fix", "ruff_format", "ruff_organize_imports"},
+    yaml = {"yamlfmt"},
+    rust = {"rustfmt"},
+    c = {"clang-format"},
+    go = {"gofumpt"}
   }
-}
-vim.cmd([[
-  augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost * FormatWrite
-  augroup END
-]])
+})
 -- [[ Configure Telescope ]]
 require('telescope').setup {
   defaults = {
