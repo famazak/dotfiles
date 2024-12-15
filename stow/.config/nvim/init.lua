@@ -266,6 +266,7 @@ require('lazy').setup({
     'ellisonleao/gruvbox.nvim',
     config = function()
       vim.cmd.colorscheme 'gruvbox'
+      vim.api.nvim_set_hl(0, "Normal", {guibg = NONE, ctermbg = NONE})
       vim.o.background = "dark"
     end
   },
@@ -751,6 +752,7 @@ local servers = {
     },
   },
   gopls = {},
+  clangd = {},
   -- rust_analyzer = {
   --   ["rust-analyzer"] = {
   --     check = {

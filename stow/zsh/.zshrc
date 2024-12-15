@@ -26,6 +26,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+alias ew='ssh edward@edward.local'
 alias nano='/usr/local/bin/nano'
 alias lg='lazygit'
 alias nv='nvim'
