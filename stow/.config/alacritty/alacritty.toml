@@ -208,7 +208,6 @@ foreground = "0x654735"
 decorations = "buttonless"
 dynamic_title = false
 title = "Alacritty"
-opacity = 0.8
 
 [window.padding]
 x = 5
