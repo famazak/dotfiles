@@ -7,12 +7,19 @@ return {
     'stevearc/conform.nvim',
     config = function()
       require("conform").setup({
+        formatters = {
+          prettier = {
+            require_cwd = true,
+          },
+        },
         formatters_by_ft = {
           python = {"ruff_fix", "ruff_format", "ruff_organize_imports"},
           yaml = {"yamlfmt"},
           rust = {"rustfmt"},
           c = {"clang-format"},
-          go = {"gofumpt"}
+          go = {"gofumpt"},
+          javascript = {"prettier"},
+          typescript = {"prettier"},
         }
       })
     end
@@ -37,7 +44,8 @@ return {
           'clang-format',
           'gopls',
           'golangci-lint',
-          'gofumpt'
+          'gofumpt',
+          'prettier'
         },
       }
     end

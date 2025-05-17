@@ -92,6 +92,8 @@ return {
         },
         gopls = {},
         clangd = {},
+        tsserver = {},
+        eslint = {},
       }
 
       -- Setup signature helper
