@@ -21,7 +21,6 @@ plugins=(
 	zsh-syntax-highlighting
 	zsh-autosuggestions
 	fast-syntax-highlighting
-    poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -40,9 +39,6 @@ alias hu='brew update && brew upgrade --greedy && brew bundle dump --file=~/dotf
 alias ll='eza --long --header --group --git --modified --color-scale --all --icons'
 alias llt='eza --long --tree --header --group --git --modified --color-scale --all --level=2 --icons'
 export BAT_THEME="base16"
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
@@ -79,3 +75,5 @@ VISUAL=nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
