@@ -9,6 +9,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/Users/zakfama/.local/bin:$PATH"
+export PATH="$PATH:$HOME/scripts/shell"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
