@@ -55,3 +55,6 @@ symbol = 'Python '
 [lua]
 format = "via [Lua $version](bold blue) "
 
+[cpp]
+disabled = false
+format = "via [C++ $version](bold blue) "
