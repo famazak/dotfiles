@@ -17,6 +17,7 @@ return {
           yaml = {"yamlfmt"},
           rust = {"rustfmt"},
           c = {"clang-format"},
+          cpp = {"clang-format"},
           go = {"gofumpt"},
           javascript = {"prettier"},
           typescript = {"prettier"},
