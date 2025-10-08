@@ -28,6 +28,7 @@ return {
   -- Ensure formatters are installed
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
       require('mason-tool-installer').setup {
         ensure_installed = {
