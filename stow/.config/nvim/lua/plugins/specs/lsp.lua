@@ -132,25 +132,28 @@ return {
         ensure_installed = vim.tbl_keys(servers),
       }
 
-      -- Setup ruff separately
-      require('lspconfig').ruff.setup{
-        settings={
-          args={
+      -- Configure LSP servers using vim.lsp.config (Neovim 0.11+)
+      for server_name, server_config in pairs(servers) do
+        vim.lsp.config(server_name, {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = server_config,
+          filetypes = (server_config or {}).filetypes,
+        })
+        vim.lsp.enable(server_name)
+      end
+
+      -- Setup ruff separately using vim.lsp.config
+      vim.lsp.config('ruff', {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          args = {
             "--config=pyproject.toml"
           }
         }
-      }
-
-      mason_lspconfig.setup_handlers {
-        function(server_name)
-          require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
-          }
-        end
-      }
+      })
+      vim.lsp.enable('ruff')
 
       -- Diagnostic keymaps
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
