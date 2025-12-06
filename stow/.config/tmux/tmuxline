@@ -1,5 +1,6 @@
 # Modified tmux statusbar config with left-aligned elements
 set -g status "on"
+set -g status-position "top"
 set -g status-justify "left"       # Left-align window list
 set -g status-style "none,bg=default"
 set -g status-left-style "none"
@@ -10,8 +11,6 @@ set -g status-right-length "100"
 # Border styles
 set -g pane-border-style "fg=brightwhite,bg=default"
 set -g pane-active-border-style "fg=brightwhite,bg=default"
-set -g pane-border-status bottom
-set -g pane-border-format ""
 set -g message-style "fg=brightwhite,bg=default"
 set -g message-command-style "fg=brightwhite,bg=default"
 
@@ -28,4 +27,4 @@ set -g status-right ""
 
 # Window status format - with window index number
 setw -g window-status-format "#[fg=brightwhite,bg=default] #I:#W "
-setw -g window-status-current-format "#[fg=brightgreen,bg=default]#[fg=brightwhite,bg=default] #I:#W* #[fg=brightgreen,bg=default]"
+setw -g window-status-current-format "#[fg=brightgreen,bg=default]#[fg=brightwhite,bg=default,bold] #I:#W* #[fg=brightgreen,bg=default,nobold]"
